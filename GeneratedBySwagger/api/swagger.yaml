@@ -1,0 +1,741 @@
+---
+swagger: "2.0"
+info:
+  description: "Support your university with our API"
+  version: "1.0.0"
+  title: "PSIDI API"
+host: "api.example.com"
+basePath: "/v1"
+schemes:
+- "https"
+produces:
+- "application/json"
+paths:
+  /Dados:
+    get:
+      tags:
+      - "Dados"
+      summary: "Tabela de valores númericos."
+      description: "Este Endpoint retorna a lista de todos os dados existentes no\
+        \ sistema, podendo receber parametros que funcionam como campos de pesquisa.\n"
+      operationId: "dadosGET"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: false
+        type: "string"
+      - name: "id_utilizador"
+        in: "query"
+        description: "Identificador do utilizador que criou os dados."
+        required: false
+        type: "string"
+      - name: "n_colunas"
+        in: "query"
+        description: "Numero de colunas da tabela de dados."
+        required: false
+        type: "number"
+      - name: "n_linhas"
+        in: "query"
+        description: "Numero de linhas da tabela de dados."
+        required: false
+        type: "number"
+      responses:
+        200:
+          description: "Uma lista de tabelas."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Dados"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Dados"
+    post:
+      tags:
+      - "Dados"
+      summary: "Adição de tabelas."
+      description: "Este Endpoint permite criar novas tabelas no sistema.\nAs tabelas\
+        \ irão ser criadas sem valores nenhuns e poderão\nou não receber o tamanho,\
+        \ se o tamanho da tabela não for \ninserido a tabela criada irá ter 1 linha\
+        \ e 1 coluna.\n"
+      operationId: "dadosPOST"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: true
+        type: "string"
+      - name: "id_utilizador"
+        in: "query"
+        description: "Identificador do utilizador que criou os dados."
+        required: true
+        type: "string"
+      - name: "n_colunas"
+        in: "query"
+        description: "Numero de colunas da tabela de dados."
+        required: false
+        type: "number"
+      - name: "n_linhas"
+        in: "query"
+        description: "Numero de linhas da tabela de dados."
+        required: false
+        type: "number"
+      responses:
+        200:
+          description: "Retorna id da nova tabela."
+          schema:
+            type: "number"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Dados"
+    delete:
+      tags:
+      - "Dados"
+      summary: "Remoção de tabelas."
+      description: "Este Endpoint permite remover uma tabela.\n"
+      operationId: "dadosDELETE"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Tabela removida com sucesso."
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Dados"
+  /Dados/Coluna:
+    get:
+      tags:
+      - "Colunas"
+      summary: "Coluna de uma tabela."
+      description: "Este Endpoint retorna uma coluna de uma tabela de dados.\n"
+      operationId: "dadosColunaGET"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: false
+        type: "string"
+      - name: "index_coluna"
+        in: "query"
+        description: "Index da coluna desejada."
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "Uma coluna da tabela de dados."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Coluna"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Colunas"
+    post:
+      tags:
+      - "Colunas"
+      summary: "Adição de colunas numa tabelas de dados."
+      description: "Este Endpoint permite criar novas colunas numa tabela do sistema.\n\
+        A coluna inserida não irá ter valores dentro dela.\n"
+      operationId: "dadosColunaPOST"
+      parameters: []
+      responses:
+        200:
+          description: "Coluna inserida com sucesso."
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Colunas"
+    delete:
+      tags:
+      - "Coluna"
+      summary: "Remoção de colunas."
+      description: "Este Endpoint permite remover uma coluna.\n"
+      operationId: "dadosColunaDELETE"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: true
+        type: "string"
+      - name: "index_coluna"
+        in: "query"
+        description: "Index da coluna a remover."
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "Coluna removida com sucesso."
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Coluna"
+  /Dados/Coluna/Grafico:
+    get:
+      tags:
+      - "Graficos"
+      summary: "Gráficos de uma coluna de uma tabela."
+      description: "Este Endpoint retorna um gráfico de uma coluna de uma tabela de\
+        \ dados. O tipo de gráfico é  inserido por parametro\n"
+      operationId: "dadosColunaGraficoGET"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: false
+        type: "string"
+      - name: "index_coluna"
+        in: "query"
+        description: "Index da coluna desejada."
+        required: true
+        type: "number"
+      - name: "tipo_grafico"
+        in: "query"
+        description: "Tipo do gráfico desejado."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Um link para uma imagem representante do gráfico."
+          schema:
+            type: "string"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Graficos"
+  /Dados/Grafico:
+    get:
+      tags:
+      - "Graficos"
+      summary: "Gráficos de uma tabela."
+      description: "Este Endpoint retorna um gráfico de uma tabela de dados.  O tipo\
+        \ de gráfico é inserido por parametro.\n"
+      operationId: "dadosGraficoGET"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: false
+        type: "string"
+      - name: "tipo_grafico"
+        in: "query"
+        description: "Tipo do gráfico desejado."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Um link para uma imagem representante do gráfico."
+          schema:
+            type: "string"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Graficos"
+  /Dados/Linha:
+    get:
+      tags:
+      - "Linhas"
+      summary: "Linha de uma tabela."
+      description: "Este Endpoint retorna uma linha de uma tabela de dados.\n"
+      operationId: "dadosLinhaGET"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: false
+        type: "string"
+      - name: "index_linha"
+        in: "query"
+        description: "Index da linha desejada."
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "Uma linha da tabela de dados."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Linha"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Linhas"
+    delete:
+      tags:
+      - "Linha"
+      summary: "Remoção de linhas."
+      description: "Este Endpoint permite remover uma linha.\n"
+      operationId: "dadosLinhaDELETE"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: true
+        type: "string"
+      - name: "index_linha"
+        in: "query"
+        description: "Index da linha a remover."
+        required: true
+        type: "number"
+      responses:
+        200:
+          description: "Linha removida com sucesso."
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Linha"
+  /Dados/Linha/Grafico:
+    get:
+      tags:
+      - "Graficos"
+      summary: "Gráficos de uma linha de uma tabela."
+      description: "Este Endpoint retorna um gráfico de uma linha de uma tabela de\
+        \ dados. O tipo de gráfico é  inserido por parametro\n"
+      operationId: "dadosLinhaGraficoGET"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador dos dados."
+        required: false
+        type: "string"
+      - name: "index_linha"
+        in: "query"
+        description: "Index da coluna desejada."
+        required: true
+        type: "number"
+      - name: "tipo_grafico"
+        in: "query"
+        description: "Tipo do gráfico desejado."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Um link para uma imagem representante do gráfico."
+          schema:
+            type: "string"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Graficos"
+  /Macros:
+    get:
+      tags:
+      - "Macros"
+      summary: "Conjunto de operações."
+      description: "Este Endpoint retorna a lista de todos os macros existentes. Podendo\
+        \ receber, como parametro, campos de pesquisa.\n"
+      operationId: "macrosGET"
+      parameters:
+      - name: "id_macro"
+        in: "query"
+        description: "Identificador do macro."
+        required: false
+        type: "string"
+      - name: "id_utilizador"
+        in: "query"
+        description: "Identificador do utilizador que criou os macros."
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Uma lista de macros."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Macro"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+    post:
+      tags:
+      - "Macros"
+      summary: "Adição de macros."
+      description: "Este Endpoint permite criar novos macros no sistema.\nOs macros\
+        \ irão ser criados vazios, necessitando de \nadicionar operações depois da\
+        \ criacção.\n"
+      operationId: "macrosPOST"
+      parameters:
+      - name: "id_utilizador"
+        in: "query"
+        description: "Identificador do utilizador que criou os dados."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Retorna id da nova macro."
+          schema:
+            type: "number"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+    delete:
+      tags:
+      - "Macros"
+      summary: "Remoção de macros."
+      description: "Este Endpoint permite remover uma macro.\n"
+      operationId: "macrosDELETE"
+      parameters:
+      - name: "id_macro"
+        in: "query"
+        description: "Identificador do macro."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Macro removida com sucesso."
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+  /Macros/AdicionarOperacao:
+    post:
+      tags:
+      - "Macros"
+      summary: "Adição de operações."
+      description: "Este Endpoint adiciona uma operação a um macro.\n"
+      operationId: "macrosAdicionarOperacaoPOST"
+      parameters:
+      - name: "id_macro"
+        in: "query"
+        description: "Identificador do macro."
+        required: true
+        type: "string"
+      - name: "operacao_valor"
+        in: "query"
+        description: "Valor da operação."
+        required: true
+        type: "string"
+      - name: "operacao_target"
+        in: "query"
+        description: "Alvo da operação."
+        required: true
+        type: "string"
+      - name: "operacao_op"
+        in: "query"
+        description: "Operação a efetuar."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Uma lista de macros."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Macro"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+  /Macros/AdicionarVector:
+    post:
+      tags:
+      - "Macros"
+      summary: "Adição de vetor às macros."
+      description: "Este Endpoint adiciona um vector a uma macro.\n"
+      operationId: "macrosAdicionarVectorPOST"
+      parameters:
+      - name: "id_macro"
+        in: "query"
+        description: "Identificador do macro."
+        required: true
+        type: "string"
+      - name: "vector"
+        in: "query"
+        description: "Conjunto de valores numéricos."
+        required: true
+        type: "array"
+        items:
+          type: "number"
+        collectionFormat: "multi"
+      responses:
+        200:
+          description: "Uma lista de macros."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Macro"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+  /Macros/ExecutarMacro:
+    post:
+      tags:
+      - "Macros"
+      summary: "Execução de uma macro."
+      description: "Este Endpoint executa macros criadas previamente.\n"
+      operationId: "macrosExecutarMacroPOST"
+      parameters:
+      - name: "id_macro"
+        in: "query"
+        description: "Identificador do macro."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Resultado da macro."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Dados"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+  /Macros/MedidasEstatisticas:
+    post:
+      tags:
+      - "Macros"
+      summary: "Calculos de estatistica."
+      description: "Este Endpoint executa calculos de estatistica a uma linha ou coluna.\n"
+      operationId: "macrosMedidasEstatisticasPOST"
+      parameters:
+      - name: "id_dados"
+        in: "query"
+        description: "Identificador da tabela."
+        required: true
+        type: "string"
+      - name: "id_linha"
+        in: "query"
+        description: "Identificador da linha."
+        required: false
+        type: "string"
+      - name: "id_coluna"
+        in: "query"
+        description: "Identificador da coluna."
+        required: false
+        type: "string"
+      - name: "tipo_estatistica"
+        in: "query"
+        description: "Estatistica a ser calculada (Media, Mediana, Variancia, etc)."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Uma lista de macros."
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Macro"
+        default:
+          description: "Erro não esperado"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Macros"
+  /Utilizadores:
+    get:
+      tags:
+      - "Utilizadores"
+      summary: "Utilizadores registados no sistema."
+      description: "Este Endpoint retorna todos os utilizadores incritos neste sistema,\
+        \ podendo receber parametros que funcionaram como campos de pesquisa.\n"
+      operationId: "utilizadoresGET"
+      parameters:
+      - name: "id_utilizador"
+        in: "query"
+        description: "Identificador do utilizador."
+        required: false
+        type: "string"
+      - name: "nome"
+        in: "query"
+        description: "Nome do utilizador."
+        required: false
+        type: "string"
+      responses:
+        200:
+          description: "Uma lista de utilizadores"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Utilizador"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Utilizadores"
+    post:
+      tags:
+      - "Utilizadores"
+      summary: "Inserção de um novo utilizador."
+      description: "Este Endpoint regista novos utilizadores no sistema.\n"
+      operationId: "utilizadoresPOST"
+      parameters:
+      - name: "id_utilizador"
+        in: "query"
+        description: "Identificador do novo utilizador."
+        required: true
+        type: "string"
+      - name: "nome"
+        in: "query"
+        description: "Nome do novo utilizador."
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "Password do novo utilizador."
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Id do utilizador registado."
+          schema:
+            type: "number"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Utilizadores"
+  /me:
+    get:
+      tags:
+      - "Utilizador"
+      summary: "User Profile"
+      description: "The User Profile endpoint returns information about the Uber user\
+        \ that has authorized with the application."
+      operationId: "meGET"
+      parameters: []
+      responses:
+        200:
+          description: "Profile information for a user"
+          schema:
+            $ref: "#/definitions/Utilizador"
+        default:
+          description: "Unexpected error"
+          schema:
+            $ref: "#/definitions/Error"
+      x-swagger-router-controller: "Utilizador"
+definitions:
+  Coluna:
+    type: "object"
+    properties:
+      id_dados:
+        type: "string"
+        description: "Identificador da tabela a que a coluna é pertencente."
+      tamanho:
+        type: "number"
+        description: "Tamanho da coluna."
+      soma:
+        type: "number"
+        description: "Soma de todos os elementos da coluna."
+      valores:
+        type: "array"
+        description: "Lista dos valores da coluna."
+        items:
+          type: "number"
+          description: "Valor numérico."
+  Linha:
+    type: "object"
+    properties:
+      id_dados:
+        type: "string"
+        description: "Identificador da tabela a que a linha é pertencente."
+      tamanho:
+        type: "number"
+        description: "Tamanho da linha."
+      soma:
+        type: "number"
+        description: "Soma de todos os elementos da linha."
+      valores:
+        type: "array"
+        description: "Lista dos valores da linha."
+        items:
+          type: "number"
+          description: "Valor numérico."
+  Dados:
+    type: "object"
+    properties:
+      id_dados:
+        type: "string"
+        description: "Identificador da tabela."
+      tamanho_linha:
+        type: "number"
+        description: "Tamanho das linhas da tabela."
+      tamanho_coluna:
+        type: "number"
+        description: "Tamanho das colunas da tabela."
+      linhas:
+        type: "array"
+        description: "Linhas da tabela de dados."
+        items:
+          $ref: "#/definitions/Linha"
+      colunas:
+        type: "array"
+        description: "Colunas da tabela de dados."
+        items:
+          $ref: "#/definitions/Coluna"
+  Operacao:
+    type: "object"
+    properties:
+      valor:
+        type: "number"
+        description: "Valor númerico que a operação vai usar."
+      target:
+        type: "string"
+        description: "Alvo da operação."
+      op:
+        type: "string"
+        description: "Operação a aplicar (soma, divisão, adição e subtracão)."
+  Macro:
+    type: "object"
+    properties:
+      id_macro:
+        type: "string"
+        description: "Identificador da macro."
+      operacoes:
+        type: "array"
+        description: "Conjunto de operacoes."
+        items:
+          $ref: "#/definitions/Operacao"
+      vector:
+        type: "array"
+        description: "Conjunto de valores numéricos."
+        items:
+          type: "number"
+  Utilizador:
+    type: "object"
+    properties:
+      id_utilizador:
+        type: "string"
+        description: "Identificador do utilizador."
+      nome:
+        type: "string"
+        description: "Nome do utilizador."
+      password:
+        type: "string"
+        description: "Password do utilizador."
+  Error:
+    type: "object"
+    properties:
+      code:
+        type: "integer"
+        format: "int32"
+      message:
+        type: "string"
+      fields:
+        type: "string"
