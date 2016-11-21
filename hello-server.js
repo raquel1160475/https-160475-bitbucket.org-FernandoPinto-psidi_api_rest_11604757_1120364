@@ -1,6 +1,7 @@
 //REQUIRES 
 var express = require('express');
 var bodyParser = require('body-parser');
+var fs = require("fs");
 //var methodOverride = require('method-override');
 
 var app = express();
@@ -15,7 +16,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 /////////////////////////////
 // DATA
 
-var users = [];
 var user = {};
 var matrix = {};
 
@@ -26,7 +26,10 @@ app.get('/utilizadores', function(req, res) {
   //res.contentType('json');
   //res.send(JSON.stringify({ text: messageText, changed: !original }));
 
-  res.json(users);
+  fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+       //console.log( data );
+       res.json( JSON.parse(data));
+   });
 });
 
 // GET UTILIZADOR
@@ -57,15 +60,30 @@ app.get('/utilizador', function(req, res) {
 // PUT
 app.put("/utilizador", function(req, res) {
   //console.log(req.body);
-
+  var users;
   var newUser = req.body; //JSON.parse(req.body);
 
-  //users[users.length] = newUser;
-  users.push(newUser);
+  /*
+  fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+       users = JSON.parse( data );
+       users[newUser.id.toString()] = newUser;
+   });
+
+  fs.writeFile( __dirname + "/" + "users.json", JSON.stringify(users), function(err) {
+    if(err) {
+        return console.log(err);
+    }
+
+    console.log("The file was saved!");
+	}
+  ); 
+
+	*/
+  res.json(newUser);
 
   //res.contentType('json');
   //res.send(JSON.stringify({ text: messageText, changed: !original }));
-  res.json(newUser);
+  //res.json(newUser);
 
   //console.log("New user was add: " + JSON.stringify(newUser));
 });
