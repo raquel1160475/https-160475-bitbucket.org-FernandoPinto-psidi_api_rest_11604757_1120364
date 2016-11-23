@@ -1,20 +1,21 @@
 {
-	"id": "79f18540-8a41-d5fe-bd8e-883d783e2648",
+	"id": "6a45911a-fcea-6f22-def9-1679620510a0",
 	"name": "API REST PSIDI",
 	"description": "",
 	"order": [
-		"09b49ec0-bbb0-afc7-90b9-2b45abe818f2",
-		"5850d62e-c8f1-9c0e-b14b-b6e9ab861aff",
-		"7ebfeec0-ffec-d800-bdad-9cfa22204504",
-		"47bd5184-44c7-bf44-1aa0-159403cf1269"
+		"5fd95cd0-fa77-0238-ca82-be9a0d809f60",
+		"6f3dd683-3aa0-e9bf-f6a7-0e5b2b38846e",
+		"e3d6571f-219a-9c68-1ed4-d323b5509084",
+		"8775a640-cd99-c19a-145e-80859440099e"
 	],
 	"folders": [],
 	"timestamp": 1479577577391,
-	"owner": "683102",
+	"owner": 0,
 	"public": false,
+	"hasRequests": true,
 	"requests": [
 		{
-			"id": "09b49ec0-bbb0-afc7-90b9-2b45abe818f2",
+			"id": "5fd95cd0-fa77-0238-ca82-be9a0d809f60",
 			"headers": "Content-Type: application/x-www-form-urlencoded\nid: \n",
 			"url": "localhost:3000/utilizador",
 			"preRequestScript": null,
@@ -47,37 +48,11 @@
 			"time": 1479579993535,
 			"name": "Editar um utilizador",
 			"description": "",
-			"collectionId": "79f18540-8a41-d5fe-bd8e-883d783e2648",
+			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
 			"responses": []
 		},
 		{
-			"id": "47bd5184-44c7-bf44-1aa0-159403cf1269",
-			"headers": "Content-Type: application/x-www-form-urlencoded\n",
-			"url": "localhost:3000/utilizadores",
-			"preRequestScript": null,
-			"pathVariables": {},
-			"method": "GET",
-			"data": [
-				{
-					"key": "text",
-					"value": "Hi",
-					"type": "text",
-					"enabled": true
-				}
-			],
-			"dataMode": "urlencoded",
-			"version": 2,
-			"tests": null,
-			"currentHelper": "normal",
-			"helperAttributes": {},
-			"time": 1479579741839,
-			"name": "Obter todos os utilizadores",
-			"description": "",
-			"collectionId": "79f18540-8a41-d5fe-bd8e-883d783e2648",
-			"responses": []
-		},
-		{
-			"id": "5850d62e-c8f1-9c0e-b14b-b6e9ab861aff",
+			"id": "6f3dd683-3aa0-e9bf-f6a7-0e5b2b38846e",
 			"headers": "Content-Type: application/x-www-form-urlencoded\nid: \n",
 			"url": "localhost:3000/utilizador",
 			"preRequestScript": null,
@@ -110,11 +85,37 @@
 			"time": 1479579862899,
 			"name": "Criar um utilizador",
 			"description": "",
-			"collectionId": "79f18540-8a41-d5fe-bd8e-883d783e2648",
+			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
 			"responses": []
 		},
 		{
-			"id": "7ebfeec0-ffec-d800-bdad-9cfa22204504",
+			"id": "8775a640-cd99-c19a-145e-80859440099e",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:3000/utilizadores",
+			"preRequestScript": null,
+			"pathVariables": {},
+			"method": "GET",
+			"data": [
+				{
+					"key": "text",
+					"value": "Hi",
+					"type": "text",
+					"enabled": true
+				}
+			],
+			"dataMode": "urlencoded",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1479579741839,
+			"name": "Obter todos os utilizadores",
+			"description": "",
+			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
+			"responses": []
+		},
+		{
+			"id": "e3d6571f-219a-9c68-1ed4-d323b5509084",
 			"headers": "Content-Type: application/x-www-form-urlencoded\nid: 1\n",
 			"url": "localhost:3000/utilizador",
 			"preRequestScript": null,
@@ -136,7 +137,7 @@
 			"time": 1479579706624,
 			"name": "Obter um utilizador",
 			"description": "",
-			"collectionId": "79f18540-8a41-d5fe-bd8e-883d783e2648",
+			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
 			"responses": []
 		}
 	]
