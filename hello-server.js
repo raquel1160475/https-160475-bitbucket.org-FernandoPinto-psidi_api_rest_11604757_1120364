@@ -60,25 +60,25 @@ app.get('/utilizador', function(req, res) {
 // PUT
 app.put("/utilizador", function(req, res) {
   //console.log(req.body);
-  var users;
+  var users = [];
   var newUser = req.body; //JSON.parse(req.body);
 
-  /*
+  
   fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
        users = JSON.parse( data );
-       users[newUser.id.toString()] = newUser;
+       users[(newUser.id - 1).toString()] = newUser;
+		fs.writeFile( __dirname + "/" + "users.json", JSON.stringify(users), function(err) {
+			if(err) {
+		    	return console.log(err);
+		  	}
+		    console.log("The file was saved!");
+		}); 
    });
 
-  fs.writeFile( __dirname + "/" + "users.json", JSON.stringify(users), function(err) {
-    if(err) {
-        return console.log(err);
-    }
+  
 
-    console.log("The file was saved!");
-	}
-  ); 
 
-	*/
+
   res.json(newUser);
 
   //res.contentType('json');
