@@ -26,10 +26,10 @@ app.get('/utilizadores', function(req, res) {
   //res.contentType('json');
   //res.send(JSON.stringify({ text: messageText, changed: !original }));
 
-  fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+  	fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
        //console.log( data );
        res.json( JSON.parse(data));
-   });
+   	});
 });
 
 // GET UTILIZADOR
@@ -62,22 +62,8 @@ app.put("/utilizador", function(req, res) {
   //console.log(req.body);
   var users = [];
   var newUser = req.body; //JSON.parse(req.body);
-
   
-  fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       users = JSON.parse( data );
-       users[(newUser.id - 1).toString()] = newUser;
-		fs.writeFile( __dirname + "/" + "users.json", JSON.stringify(users), function(err) {
-			if(err) {
-		    	return console.log(err);
-		  	}
-		    console.log("The file was saved!");
-		}); 
-   });
-
-  
-
-
+  addUser(newUser);
 
   res.json(newUser);
 
@@ -108,6 +94,41 @@ app.post("/utilizador", function(req, res) {
 
 });
 
+//Gets the max id available, to insert into a new user
+var getMaxId = function(_callback){
+	console.log("Enterign Max ID GET");
+	fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+       users = JSON.parse(data);
+       maxID = 0;
+       for (var i = users.length - 1; i >= 0; i--) {
+       	if(users[i].id > maxID){
+       		console.log("Found new max id.");
+       		maxID = users[i].id;
+       	}
+       }
+       _callback(maxID);
+   	});
+}
+
+//Adds a new user to the users.json file
+var addUser = function(newUser){
+	fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
+       	users = JSON.parse( data );
+       	var maxID = getMaxId(function(maxID){
+       		maxID++;
+			newUser.id = maxID;
+			users.push(newUser);
+
+			fs.writeFile( __dirname + "/" + "users.json", JSON.stringify(users), function(err) {
+				if(err) {
+			    	return console.log(err);
+			  	}
+			    console.log("User was created!");
+			}); 
+       	});
+       	
+   });
+}
 
 /////////////////////////////
 // STARTING ...
