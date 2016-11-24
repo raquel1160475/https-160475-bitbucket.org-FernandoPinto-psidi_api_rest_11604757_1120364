@@ -6,6 +6,8 @@ var fs = require("fs");
 
 var app = express();
 
+var utilizadorController = require('./Controllers/UtilizadorController');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 //app.use(methodOverride());
@@ -16,119 +18,31 @@ app.use(bodyParser.urlencoded({extended:true}));
 /////////////////////////////
 // DATA
 
-var user = {};
-var matrix = {};
+
 
 /////////////////////////////
 // MAIN ROUTING
 
 app.get('/utilizadores', function(req, res) {
-  //res.contentType('json');
-  //res.send(JSON.stringify({ text: messageText, changed: !original }));
-
-  	fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       //console.log( data );
-       res.json( JSON.parse(data));
-   	});
+	utilizadorController.getUtilizadores(res);
 });
 
 // GET UTILIZADOR
 app.get('/utilizador', function(req, res) {
-  //res.contentType('json');
-  //res.send(JSON.stringify({ text: messageText, changed: !original }));
-  var index = req.headers.id;
-  var userFound = false;
-
-  //console.log("Users available : " + JSON.stringify(users));
-  
-  for (var i = users.length - 1; i >= 0; i--) {
-    //console.log(users[i]);
-    if (users[i].id == index){
-      console.log(users[i].id);
-      res.json(users[i]);
-      userFound = true;
-    } 
-  };
-
-  if(!userFound){
-    res.json({text: 'The user does not exist.'});
-  }
-
-  //console.log("message text requested. text sent was:" + messageText);
+  	utilizadorController.getUtilizador(res, req.headers.id);
 });
 
 // PUT
 app.put("/utilizador", function(req, res) {
-  //console.log(req.body);
-  var users = [];
-  var newUser = req.body; //JSON.parse(req.body);
-  
-  addUser(newUser);
-
-  res.json(newUser);
-
-  //res.contentType('json');
-  //res.send(JSON.stringify({ text: messageText, changed: !original }));
-  //res.json(newUser);
-
-  //console.log("New user was add: " + JSON.stringify(newUser));
+  	utilizadorController.putUtilizador(res, req.body);
 });
 
 // POST
 app.post("/utilizador", function(req, res) {
-  var userFound = false;  
-  var editedUser = req.body;
-  var index = editedUser.id;
-
-  for (var i = users.length - 1; i >= 0; i--) {
-    if(users[i].id = index){
-      users[i] = editedUser;
-      res.json(editedUser);
-      userFound = true;
-    } 
-  };
-
-  if(!userFound){
-    res.json({text: 'The user does not exist.'});
-  }
-
+  	utilizadorController.postUtilizador(res, req.body);
 });
 
-//Gets the max id available, to insert into a new user
-var getMaxId = function(_callback){
-	console.log("Enterign Max ID GET");
-	fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       users = JSON.parse(data);
-       maxID = 0;
-       for (var i = users.length - 1; i >= 0; i--) {
-       	if(users[i].id > maxID){
-       		console.log("Found new max id.");
-       		maxID = users[i].id;
-       	}
-       }
-       _callback(maxID);
-   	});
-}
 
-//Adds a new user to the users.json file
-var addUser = function(newUser){
-	fs.readFile( __dirname + "/" + "users.json", 'utf8', function (err, data) {
-       	users = JSON.parse( data );
-       	var maxID = getMaxId(function(maxID){
-       		maxID++;
-			newUser.id = maxID;
-			users.push(newUser);
-
-			fs.writeFile( __dirname + "/" + "users.json", JSON.stringify(users), function(err) {
-				if(err) {
-			    	return console.log(err);
-			  	}
-			    console.log("User was created!");
-			}); 
-       	});
-       	
-   });
-}
 
 /////////////////////////////
 // STARTING ...

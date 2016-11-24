@@ -60,20 +60,14 @@
 			"method": "PUT",
 			"data": [
 				{
-					"key": "id",
-					"value": "1",
-					"type": "text",
-					"enabled": true
-				},
-				{
 					"key": "name",
-					"value": "Joana",
+					"value": "Joaquim",
 					"type": "text",
 					"enabled": true
 				},
 				{
 					"key": "password",
-					"value": "123",
+					"value": "1234",
 					"type": "text",
 					"enabled": true
 				}
@@ -82,7 +76,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1479579862899,
+			"time": 1480002609923,
 			"name": "Criar um utilizador",
 			"description": "",
 			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
