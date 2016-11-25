@@ -17,26 +17,20 @@
 		{
 			"id": "5fd95cd0-fa77-0238-ca82-be9a0d809f60",
 			"headers": "Content-Type: application/x-www-form-urlencoded\nid: \n",
-			"url": "localhost:3000/utilizador",
+			"url": "localhost:3000/utilizadores/2",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "POST",
 			"data": [
 				{
-					"key": "id",
-					"value": "1",
-					"type": "text",
-					"enabled": true
-				},
-				{
 					"key": "name",
-					"value": "Joana",
+					"value": "Carlos",
 					"type": "text",
 					"enabled": true
 				},
 				{
 					"key": "password",
-					"value": "123",
+					"value": "abc",
 					"type": "text",
 					"enabled": true
 				}
@@ -45,7 +39,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1479579993535,
+			"time": 1480068507385,
 			"name": "Editar um utilizador",
 			"description": "",
 			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
@@ -53,15 +47,15 @@
 		},
 		{
 			"id": "6f3dd683-3aa0-e9bf-f6a7-0e5b2b38846e",
-			"headers": "Content-Type: application/x-www-form-urlencoded\nid: \n",
-			"url": "localhost:3000/utilizador",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:3000/utilizadores",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "PUT",
 			"data": [
 				{
 					"key": "name",
-					"value": "Joaquim",
+					"value": "abc",
 					"type": "text",
 					"enabled": true
 				},
@@ -76,7 +70,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1480002609923,
+			"time": 1480068525594,
 			"name": "Criar um utilizador",
 			"description": "",
 			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
@@ -102,7 +96,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1479579741839,
+			"time": 1480067781306,
 			"name": "Obter todos os utilizadores",
 			"description": "",
 			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
@@ -110,8 +104,8 @@
 		},
 		{
 			"id": "e3d6571f-219a-9c68-1ed4-d323b5509084",
-			"headers": "Content-Type: application/x-www-form-urlencoded\nid: 1\n",
-			"url": "localhost:3000/utilizador",
+			"headers": "Content-Type: application/x-www-form-urlencoded\n",
+			"url": "localhost:3000/utilizadores/1",
 			"preRequestScript": null,
 			"pathVariables": {},
 			"method": "GET",
@@ -128,7 +122,7 @@
 			"tests": null,
 			"currentHelper": "normal",
 			"helperAttributes": {},
-			"time": 1479579706624,
+			"time": 1480068201466,
 			"name": "Obter um utilizador",
 			"description": "",
 			"collectionId": "6a45911a-fcea-6f22-def9-1679620510a0",
